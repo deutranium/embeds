@@ -3,7 +3,7 @@ import networkx as nx
 import random
 from gensim.models import Word2Vec
 # from stellargraph.data import BiasedRandomWalk
-from stellargraph import StellarGraph
+# from stellargraph import StellarGraph
 import pickle
 import node2vec
 
