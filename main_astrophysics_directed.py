@@ -12,14 +12,6 @@ from sklearn.metrics import roc_auc_score
 from sklearn.metrics import average_precision_score
 
 
-def get_dataset():
-    nx_g = nx.read_edgelist("./datasets/ca-AstroPh.txt", delimiter="\t")
-    return nx_g
-
-
-nx_g = get_dataset()
-
-
 ITER = 1
 WORKERS = multiprocessing.cpu_count()
 SPLIT_SEED = 1
