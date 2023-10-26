@@ -2,7 +2,7 @@ import pickle
 import wandb
 import json
 import multiprocessing
-from stellargraph import StellarGraph, datasets
+# from stellargraph import StellarGraph, datasets
 import networkx as nx
 import utils as U
 import embeddings as E
