@@ -3,7 +3,7 @@ import random
 import networkx as nx
 import helper as H
 import pandas as pd
-from stellargraph.data import EdgeSplitter
+# from stellargraph.data import EdgeSplitter
 from sklearn.model_selection import train_test_split
 
 
@@ -29,28 +29,28 @@ def read_graph_from_path(path):
 
 
 
-def get_splits(g, test_size=0.2, val_size=0.1, seed=1, method="global"):
-    abs_train_size = 1-test_size
-    val_size = val_size/abs_train_size
-    train_size = 1-val_size
+# def get_splits(g, test_size=0.2, val_size=0.1, seed=1, method="global"):
+#     abs_train_size = 1-test_size
+#     val_size = val_size/abs_train_size
+#     train_size = 1-val_size
 
-    test_splitter = EdgeSplitter(g)
-    not_test_g, test_examples, test_labels = test_splitter.train_test_split(p=test_size, seed=seed, method=method)
-    test_g = get_graph_from_edges(g, test_examples, test_labels)
+#     test_splitter = EdgeSplitter(g)
+#     not_test_g, test_examples, test_labels = test_splitter.train_test_split(p=test_size, seed=seed, method=method)
+#     test_g = get_graph_from_edges(g, test_examples, test_labels)
 
-    # TRAIN AND GRAPH
-    train_splitter = EdgeSplitter(not_test_g, g)
-    not_train_g, examples, labels = train_splitter.train_test_split(p=0.9999999, seed=seed, method=method)
-    train_g = get_graph_from_edges(g, examples, labels)
+#     # TRAIN AND GRAPH
+#     train_splitter = EdgeSplitter(not_test_g, g)
+#     not_train_g, examples, labels = train_splitter.train_test_split(p=0.9999999, seed=seed, method=method)
+#     train_g = get_graph_from_edges(g, examples, labels)
 
-    # train and val split
-    train_examples, val_examples, train_labels, val_labels = train_test_split(examples, labels, train_size=train_size, test_size=val_size)
+#     # train and val split
+#     train_examples, val_examples, train_labels, val_labels = train_test_split(examples, labels, train_size=train_size, test_size=val_size)
 
-    print(f"""INFO: Split made with {len([i for i in train_labels if i==1])}, {len([i for i in val_labels if i==1])} and {len(test_g.edges())} edges in train, val and test respectively.
-    `train_graph` and `test_graph` have {len(train_g.edges())} and {len(test_g.edges())} edges respectively whereas the original graph had {len(g.edges())} edges""")
+#     print(f"""INFO: Split made with {len([i for i in train_labels if i==1])}, {len([i for i in val_labels if i==1])} and {len(test_g.edges())} edges in train, val and test respectively.
+#     `train_graph` and `test_graph` have {len(train_g.edges())} and {len(test_g.edges())} edges respectively whereas the original graph had {len(g.edges())} edges""")
 
 
-    return test_g, test_examples, test_labels, train_g, train_examples, train_labels, val_examples, val_labels
+#     return test_g, test_examples, test_labels, train_g, train_examples, train_labels, val_examples, val_labels
 
 class GetBestCLF():
     def __init__(self, examples_train, examples_val, labels_train, labels_val, embedding_train) -> None:
