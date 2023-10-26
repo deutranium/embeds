@@ -2,7 +2,7 @@ import json
 import networkx as nx
 import random
 from gensim.models import Word2Vec
-from stellargraph.data import BiasedRandomWalk
+# from stellargraph.data import BiasedRandomWalk
 from stellargraph import StellarGraph
 import pickle
 import node2vec
@@ -196,61 +196,61 @@ class BetterNode2Vec:
             pickle.dump(embeds, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
-class Node2Vec:
-    def __init__(
-        self, g, p, q, num_walks, rw_len, dimensions, window_size, workers, iter
-    ) -> None:
-        g = StellarGraph.from_networkx(g)
+# class Node2Vec:
+#     def __init__(
+#         self, g, p, q, num_walks, rw_len, dimensions, window_size, workers, iter
+#     ) -> None:
+#         g = StellarGraph.from_networkx(g)
 
-        self.g = g
-        self.p = p
-        self.q = q
-        self.num_walks = num_walks
-        self.rw_len = rw_len
+#         self.g = g
+#         self.p = p
+#         self.q = q
+#         self.num_walks = num_walks
+#         self.rw_len = rw_len
 
-        # for Word2Vec
-        self.dimensions = dimensions
-        self.window_size = window_size
-        self.workers = workers
-        self.iter = iter
+#         # for Word2Vec
+#         self.dimensions = dimensions
+#         self.window_size = window_size
+#         self.workers = workers
+#         self.iter = iter
 
-        self.walks = self.get_sentences()
-        self.model = self.get_model()
+#         self.walks = self.get_sentences()
+#         self.model = self.get_model()
 
-    def get_sentences(self):
-        g = self.g
-        p, q = self.p, self.q
+#     def get_sentences(self):
+#         g = self.g
+#         p, q = self.p, self.q
 
-        rw = BiasedRandomWalk(g)
-        sentences = rw.run(g.nodes(), n=self.num_walks, length=self.rw_len, p=p, q=q)
-        return sentences
+#         rw = BiasedRandomWalk(g)
+#         sentences = rw.run(g.nodes(), n=self.num_walks, length=self.rw_len, p=p, q=q)
+#         return sentences
 
-    def get_model(self):
-        """
-        Get Word2Vec model
-        """
+#     def get_model(self):
+#         """
+#         Get Word2Vec model
+#         """
 
-        model = Word2Vec(
-            self.walks,
-            vector_size=self.dimensions,
-            window=self.window_size,
-            min_count=0,
-            sg=1,
-            workers=self.workers,
-            epochs=self.iter,
-        )
+#         model = Word2Vec(
+#             self.walks,
+#             vector_size=self.dimensions,
+#             window=self.window_size,
+#             min_count=0,
+#             sg=1,
+#             workers=self.workers,
+#             epochs=self.iter,
+#         )
 
-        return model
+#         return model
 
-    def get_embedding(self, u):
-        idx = self.model.wv.key_to_index[u]
-        return self.model.wv[idx]
+#     def get_embedding(self, u):
+#         idx = self.model.wv.key_to_index[u]
+#         return self.model.wv[idx]
 
-    def store_embeddings(self, path):
-        d = self.model.wv.key_to_index
-        embeds = self.model.wv
+#     def store_embeddings(self, path):
+#         d = self.model.wv.key_to_index
+#         embeds = self.model.wv
 
-        with open(f"{path}_d_n2v.json", "w", encoding="utf-8") as f:
-            json.dump(d, f, indent=4)
-        with open(f"{path}_embeds_n2v.pickle", "wb") as handle:
-            pickle.dump(embeds, handle, protocol=pickle.HIGHEST_PROTOCOL)
+#         with open(f"{path}_d_n2v.json", "w", encoding="utf-8") as f:
+#             json.dump(d, f, indent=4)
+#         with open(f"{path}_embeds_n2v.pickle", "wb") as handle:
+#             pickle.dump(embeds, handle, protocol=pickle.HIGHEST_PROTOCOL)
