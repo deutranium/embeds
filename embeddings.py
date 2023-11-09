@@ -20,7 +20,7 @@ class NBNE:
         window_size,
         workers,
         iter,
-        min_thresh=1,
+        min_thresh=2,
         seed=1,
     ) -> None:
         self.g = g
