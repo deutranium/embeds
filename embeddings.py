@@ -59,7 +59,7 @@ class NBNE:
                 random.shuffle(neighbours)
                 len_n = len(neighbours)
 
-                if len_n:
+                if len_n > 1:
                     for i in range(0, len_n, k):
                         start = min(i, max(0, len_n - k))
                         this_sentence = [node] + neighbours[start : start + k]
@@ -71,6 +71,8 @@ class NBNE:
                                 this_sentence, t
                             )
                             sentences.append(this_threshold_sentence)
+                elif len == 1:
+                    sentences.append([node, neighbours[0]])
                 else:
                     sentences.append([node])
 
