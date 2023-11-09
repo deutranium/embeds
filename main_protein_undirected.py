@@ -94,4 +94,4 @@ def main(path=None):
 
 
 if __name__ == "__main__":
-    main(path="./dataset_splits/astrophysics/undirected.pickle")
+    main(path="./dataset_splits/protein_protein/undirected.pickle")
