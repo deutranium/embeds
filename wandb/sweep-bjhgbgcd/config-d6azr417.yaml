@@ -1,0 +1,14 @@
+wandb_version: 1
+
+DIMENSIONS:
+  value: 128
+NUM_PERMUTATIONS:
+  value: 1
+THRESHOLD:
+  value: 2
+THRESH_LEN:
+  value: 5
+WINDOW_SIZE:
+  value: 5
+k:
+  value: 6

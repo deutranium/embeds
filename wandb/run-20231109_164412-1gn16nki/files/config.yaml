@@ -1,0 +1,45 @@
+wandb_version: 1
+
+DIMENSIONS:
+  desc: null
+  value: 128
+NUM_PERMUTATIONS:
+  desc: null
+  value: 1
+THRESHOLD:
+  desc: null
+  value: 2
+THRESH_LEN:
+  desc: null
+  value: 5
+WINDOW_SIZE:
+  desc: null
+  value: 5
+k:
+  desc: null
+  value: 5
+_wandb:
+  desc: null
+  value:
+    python_version: 3.8.17
+    cli_version: 0.15.10
+    framework: sklearn
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1699544652.863144
+    t:
+      1:
+      - 5
+      - 53
+      - 55
+      2:
+      - 5
+      - 53
+      - 55
+      3:
+      - 23
+      - 37
+      4: 3.8.17
+      5: 0.15.10
+      8:
+      - 5

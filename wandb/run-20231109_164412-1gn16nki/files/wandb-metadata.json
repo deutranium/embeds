@@ -1,0 +1,52 @@
+{
+    "os": "macOS-10.16-x86_64-i386-64bit",
+    "python": "3.8.17",
+    "heartbeatAt": "2023-11-09T15:44:13.509178",
+    "startedAt": "2023-11-09T15:44:12.852288",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--DIMENSIONS=128",
+        "--NUM_PERMUTATIONS=1",
+        "--THRESHOLD=2",
+        "--THRESH_LEN=5",
+        "--WINDOW_SIZE=5",
+        "--k=5"
+    ],
+    "state": "running",
+    "program": "main_protein_undirected.py",
+    "codePathLocal": "main_protein_undirected.py",
+    "codePath": "main_protein_undirected.py",
+    "git": {
+        "remote": "https://github.com/deutranium/embeds.git",
+        "commit": "8a3fe6d681e85be0d4e7f26f51f59fdf70230495"
+    },
+    "email": "29124655+deutranium@users.noreply.github.com",
+    "root": "/Users/kshitijaa/eth/embeddings/link-prediction/twitter/embeds_repo",
+    "host": "Kshitijaas-MacBook-Pro.local",
+    "username": "kshitijaa",
+    "executable": "/opt/anaconda3/envs/embeddings_paper/bin/python3.8",
+    "cpu_count": 6,
+    "cpu_count_logical": 12,
+    "cpu_freq": {
+        "current": 2600,
+        "min": 2600,
+        "max": 2600
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2600,
+            "min": 2600,
+            "max": 2600
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 465.62699127197266,
+            "used": 20.636470794677734
+        }
+    },
+    "memory": {
+        "total": 16.0
+    }
+}

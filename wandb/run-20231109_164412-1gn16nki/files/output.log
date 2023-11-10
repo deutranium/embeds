@@ -1,0 +1,12 @@
+
+Running train, test and val splits with values 0.8, 0.2 and 0.1 respectively
+Traceback (most recent call last):
+  File "main_protein_undirected.py", line 99, in <module>
+    main(path="./dataset_splits/protein_protein/undirected.pickle")
+  File "main_protein_undirected.py", line 72, in main
+    train_embeds_nbne = U.get_edge_embeds(train_edges, nbne.get_embedding)
+  File "/Users/kshitijaa/eth/embeddings/link-prediction/twitter/embeds_repo/utils.py", line 99, in get_edge_embeds
+    this_embed = list(np.multiply(get_model_embed(u), get_model_embed(v)))
+  File "/Users/kshitijaa/eth/embeddings/link-prediction/twitter/embeds_repo/embeddings.py", line 126, in get_embedding
+    idx = self.model.wv.key_to_index[u]
+KeyError: 2227

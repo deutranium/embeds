@@ -42,17 +42,7 @@ def main(path=None):
     threshold = wandb.config.THRESHOLD
     k = wandb.config.k
 
-    if k + 1 < threshold:
-        wandb.log(
-            {
-                "val_roc": -1,
-                "val_ap": -1,
-                "test_roc": -1,
-                "test_ap": -1,
-                "roc_auc_score": -1,
-            }
-        )
-        return 0
+    print("VALUES:", dimensions, win_size, num_permutations, thresh_len, threshold, k)
 
     nbne = E.NBNE(
         g=train_g,

@@ -34,6 +34,8 @@ def main(path=None):
         [test_g, test_edges, test_labels],
         [val_g, val_edges, val_labels],
         ) = pickle.load(f)
+    
+    print(f"Loaded {len(train_edges)}, {len(test_edges)}, {len(val_edges)} train, test and val edges respectively")
 
     dimensions = wandb.config.DIMENSIONS
     win_size = wandb.config.WINDOW_SIZE

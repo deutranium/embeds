@@ -1,0 +1,23 @@
+2023-11-09 16:44:10 INFO Running runs: []
+2023-11-09 16:44:11 INFO Agent received command: run
+2023-11-09 16:44:11 INFO Agent starting run with config:
+	DIMENSIONS: 128
+	NUM_PERMUTATIONS: 1
+	THRESHOLD: 2
+	THRESH_LEN: 5
+	WINDOW_SIZE: 5
+	k: 5
+2023-11-09 16:44:11 INFO About to run command: /usr/bin/env python3 main_protein_undirected.py --DIMENSIONS=128 --NUM_PERMUTATIONS=1 --THRESHOLD=2 --THRESH_LEN=5 --WINDOW_SIZE=5 --k=5
+2023-11-09 16:44:16 INFO Running runs: ['1gn16nki']
+2023-11-09 16:44:21 INFO Cleaning up finished run: 1gn16nki
+2023-11-09 16:44:42 INFO Running runs: []
+2023-11-09 16:44:43 INFO Agent received command: run
+2023-11-09 16:44:43 INFO Agent starting run with config:
+	DIMENSIONS: 128
+	NUM_PERMUTATIONS: 1
+	THRESHOLD: 2
+	THRESH_LEN: 5
+	WINDOW_SIZE: 5
+	k: 6
+2023-11-09 16:44:43 INFO About to run command: /usr/bin/env python3 main_protein_undirected.py --DIMENSIONS=128 --NUM_PERMUTATIONS=1 --THRESHOLD=2 --THRESH_LEN=5 --WINDOW_SIZE=5 --k=6
+2023-11-09 16:44:48 INFO Running runs: ['d6azr417']
