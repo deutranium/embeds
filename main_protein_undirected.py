@@ -54,45 +54,45 @@ def main(path=None):
                 "roc_auc_score": -1,
             }
         )
-    
-    else:
-        nbne = E.NBNE(
-            g=train_g,
-            k=k,
-            num_permutations=num_permutations,
-            thresh_len=thresh_len,
-            threshold=threshold,
-            dimensions=dimensions,
-            window_size=win_size,
-            workers=WORKERS,
-            iter=ITER,
-        )
+        return 0
 
-        # get edge embeddings
-        train_embeds_nbne = U.get_edge_embeds(train_edges, nbne.get_embedding)
-        test_embeds_nbne = U.get_edge_embeds(test_edges, nbne.get_embedding)
-        val_embeds_nbne = U.get_edge_embeds(val_edges, nbne.get_embedding)
+    nbne = E.NBNE(
+        g=train_g,
+        k=k,
+        num_permutations=num_permutations,
+        thresh_len=thresh_len,
+        threshold=threshold,
+        dimensions=dimensions,
+        window_size=win_size,
+        workers=WORKERS,
+        iter=ITER,
+    )
 
-        edge_clf_nbne = LogisticRegression()
-        edge_clf_nbne.fit(train_embeds_nbne, train_labels)
+    # get edge embeddings
+    train_embeds_nbne = U.get_edge_embeds(train_edges, nbne.get_embedding)
+    test_embeds_nbne = U.get_edge_embeds(test_edges, nbne.get_embedding)
+    val_embeds_nbne = U.get_edge_embeds(val_edges, nbne.get_embedding)
 
-        val_preds_nbne = edge_clf_nbne.predict_proba(val_embeds_nbne)[:, 1]
-        val_roc_nbne = roc_auc_score(val_labels, val_preds_nbne)
-        val_ap_nbne = average_precision_score(val_labels, val_preds_nbne)
+    edge_clf_nbne = LogisticRegression()
+    edge_clf_nbne.fit(train_embeds_nbne, train_labels)
 
-        test_preds_nbne = edge_clf_nbne.predict_proba(test_embeds_nbne)[:, 1]
-        test_roc_nbne = roc_auc_score(test_labels, test_preds_nbne)
-        test_ap_nbne = average_precision_score(test_labels, test_preds_nbne)
+    val_preds_nbne = edge_clf_nbne.predict_proba(val_embeds_nbne)[:, 1]
+    val_roc_nbne = roc_auc_score(val_labels, val_preds_nbne)
+    val_ap_nbne = average_precision_score(val_labels, val_preds_nbne)
 
-        wandb.log(
-            {
-                "val_roc": val_roc_nbne,
-                "val_ap": val_ap_nbne,
-                "test_roc": test_roc_nbne,
-                "test_ap": test_ap_nbne,
-                "roc_auc_score": test_roc_nbne,
-            }
-        )
+    test_preds_nbne = edge_clf_nbne.predict_proba(test_embeds_nbne)[:, 1]
+    test_roc_nbne = roc_auc_score(test_labels, test_preds_nbne)
+    test_ap_nbne = average_precision_score(test_labels, test_preds_nbne)
+
+    wandb.log(
+        {
+            "val_roc": val_roc_nbne,
+            "val_ap": val_ap_nbne,
+            "test_roc": test_roc_nbne,
+            "test_ap": test_ap_nbne,
+            "roc_auc_score": test_roc_nbne,
+        }
+    )
 
 
 if __name__ == "__main__":
