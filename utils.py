@@ -3,6 +3,7 @@ import random
 import networkx as nx
 import helper as H
 import pandas as pd
+
 # from stellargraph.data import EdgeSplitter
 from sklearn.model_selection import train_test_split
 
@@ -19,14 +20,13 @@ def get_graph_from_edges(g, edges, labels):
     res.add_edges_from(positive_edges)
     positive_edges = set(positive_edges)
 
-
     # print(positive_edges)
     # print(f"{len(positive_edges)} positive edges detected from {temp} edges")
     return res
 
+
 def read_graph_from_path(path):
     return nx.read_edgelist(path, nodetype=int, create_using=nx.Graph(), delimiter=",")
-
 
 
 # def get_splits(g, test_size=0.2, val_size=0.1, seed=1, method="global"):
@@ -52,38 +52,38 @@ def read_graph_from_path(path):
 
 #     return test_g, test_examples, test_labels, train_g, train_examples, train_labels, val_examples, val_labels
 
-class GetBestCLF():
-    def __init__(self, examples_train, examples_val, labels_train, labels_val, embedding_train) -> None:
-        results = [H.run_link_prediction(op, examples_train, examples_val, labels_train, labels_val, embedding_train) for op in H.binary_operators]
-        self.results = results
-        best_result = max(results, key=lambda result: result["score"])
-        self.best_result = best_result
+# class GetBestCLF():
+#     def __init__(self, examples_train, examples_val, labels_train, labels_val, embedding_train) -> None:
+#         results = [H.run_link_prediction(op, examples_train, examples_val, labels_train, labels_val, embedding_train) for op in H.binary_operators]
+#         self.results = results
+#         best_result = max(results, key=lambda result: result["score"])
+#         self.best_result = best_result
 
-        print(f"Best result from '{best_result['binary_operator'].__name__}'")
+#         print(f"Best result from '{best_result['binary_operator'].__name__}'")
 
-        self.df = pd.DataFrame(
-            [(result["binary_operator"].__name__, result["score"]) for result in results],
-            columns=("name", "ROC AUC score"),
-        ).set_index("name")
+#         self.df = pd.DataFrame(
+#             [(result["binary_operator"].__name__, result["score"]) for result in results],
+#             columns=("name", "ROC AUC score"),
+#         ).set_index("name")
 
 
-def evaluate_stuff(best_clf, examples_test, labels_test, embedding_test, best_bo):
-    test_score = H.evaluate_link_prediction_model(best_clf,
-        examples_test,
-        labels_test,
-        embedding_test,
-        best_bo
-    )
-    print(
-        f"ROC AUC score on test set using '{best_bo.__name__}': {test_score}"
-    )
+# def evaluate_stuff(best_clf, examples_test, labels_test, embedding_test, best_bo):
+#     test_score = H.evaluate_link_prediction_model(best_clf,
+#         examples_test,
+#         labels_test,
+#         embedding_test,
+#         best_bo
+#     )
+#     print(
+#         f"ROC AUC score on test set using '{best_bo.__name__}': {test_score}"
+#     )
 
-    return test_score
+#     return test_score
 
 
 def combine_samples(positive, negative):
     l = len(positive)
-    Y = [1]*l + [0]*l
+    Y = [1] * l + [0] * l
     X = positive + negative
 
     temp = list(zip(X, Y))
@@ -92,11 +92,21 @@ def combine_samples(positive, negative):
     X, Y = zip(*temp)
     return X, Y
 
+
 def get_edge_embeds(edge_list, get_model_embed):
     embeds = []
     for edge in edge_list:
         u, v = edge
         this_embed = list(np.multiply(get_model_embed(u), get_model_embed(v)))
+        embeds.append(this_embed)
+
+    return embeds
+
+
+def get_node_embeds(node_list, get_model_embed):
+    embeds = []
+    for node in node_list:
+        this_embed = list(get_model_embed(node))
         embeds.append(this_embed)
 
     return embeds

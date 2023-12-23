@@ -16,20 +16,20 @@ def link_examples_to_features(link_examples, transform_node, binary_operator):
 
 
 # 2. training classifier
-def train_link_prediction_model(
-    link_examples, link_labels, get_embedding, binary_operator
-):
-    clf = link_prediction_classifier()
-    link_features = link_examples_to_features(
-        link_examples, get_embedding, binary_operator
-    )
-    clf.fit(link_features, link_labels)
-    return clf
+# def train_link_prediction_model(
+#     link_examples, link_labels, get_embedding, binary_operator
+# ):
+#     clf = link_prediction_classifier()
+#     link_features = link_examples_to_features(
+#         link_examples, get_embedding, binary_operator
+#     )
+#     clf.fit(link_features, link_labels)
+#     return clf
 
 
-def link_prediction_classifier(max_iter=2000):
-    lr_clf = LogisticRegressionCV(Cs=10, cv=10, scoring="roc_auc", max_iter=max_iter)
-    return Pipeline(steps=[("sc", StandardScaler()), ("clf", lr_clf)])
+# def link_prediction_classifier(max_iter=4000):
+#     lr_clf = LogisticRegressionCV(Cs=10, cv=10, scoring="roc_auc", max_iter=max_iter)
+#     return Pipeline(steps=[("sc", StandardScaler()), ("clf", lr_clf)])
 
 
 # 3. and 4. evaluate classifier
