@@ -6,6 +6,7 @@ from gensim.models import Word2Vec
 # from stellargraph import StellarGraph
 import pickle
 import node2vec
+from multiprocessing import Pool, cpu_count
 
 
 class NBNE:
@@ -40,41 +41,44 @@ class NBNE:
 
         self.SEED = seed
 
-        self.walks = self.get_sentences()
+        self.sentences = []
+        self.nodes = list(g.nodes)
+        self.get_sentences()
         self.model = self.get_model()
 
+    def process_nodes(self, node):
+        neighbours = list(nx.all_neighbors(self.g, node))
+        random.shuffle(neighbours)
+        len_n = len(neighbours)
+
+        if len_n:
+            for i in range(0, len_n, self.k):
+                start = min(i, max(0, len_n - self.k))
+                this_sentence = [node] + neighbours[start : start + self.k]
+
+                node_thresh = min(self.thresh, self.g.degree(node))
+
+                for t in range(self.min_thresh, node_thresh + 1):
+                    this_threshold_sentence = self.get_threshold_rw(
+                        this_sentence, t
+                    )
+                    self.sentences.append(this_threshold_sentence)
+        else:
+            self.sentences.append([node])
+
+
     def get_sentences(self):
-        g = self.g
-        k = self.k
-        permutations = self.num_permutations
+        self.sentences = []
 
-        nodes = list(g.nodes())
-        sentences = []
-
-        for p in range(permutations):
-            print(f"PERMUTATION: {p}")
-
-            for node in nodes:
-                neighbours = list(nx.all_neighbors(g, node))
-                random.shuffle(neighbours)
-                len_n = len(neighbours)
-
-                if len_n:
-                    for i in range(0, len_n, k):
-                        start = min(i, max(0, len_n - k))
-                        this_sentence = [node] + neighbours[start : start + k]
-
-                        node_thresh = min(self.thresh, g.degree(node))
-
-                        for t in range(self.min_thresh, node_thresh + 1):
-                            this_threshold_sentence = self.get_threshold_rw(
-                                this_sentence, t
-                            )
-                            sentences.append(this_threshold_sentence)
-                else:
-                    sentences.append([node])
-
-        return sentences
+        for p in range(self.num_permutations):
+            print(f"PERMUTATION [preprocessing]: {p}")
+            pool = Pool(processes=(cpu_count()-1))
+            for idx, node in enumerate(self.nodes):
+                if not idx%1000:
+                    print(idx)
+                pool.apply_async(self.process_nodes, args=(node))
+            pool.close()
+            pool.join()
 
     def get_threshold_rw(self, nodes, t):
         """
