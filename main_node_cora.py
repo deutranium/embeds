@@ -58,7 +58,7 @@ def main(path=None):
     node_clf_nbne.fit(train_node_embeds_nbne, train_Y)
 
     val_preds_nbne = node_clf_nbne.predict(val_node_embeds_nbne)
-    # val_score = node_clf_nbne.score(val_node_embeds_nbne, val_Y)
+    val_score = node_clf_nbne.score(val_node_embeds_nbne, val_Y)
 
     acc = accuracy_score(val_Y, val_preds_nbne)
     f1_micro = f1_score(val_Y, val_preds_nbne, average="micro")
@@ -72,6 +72,7 @@ def main(path=None):
     # test_ap_nbne = average_precision_score(test_Y, test_preds_nbne)
 
     wandb.log({
+        "val_score": val_score,
         "accuracy": acc,
         "f1 micro": f1_micro,
         "f1 macro": f1_macro
